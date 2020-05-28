@@ -71,11 +71,11 @@ public class Filter implements Listener {
 		if (item == null) {
 			return;
 		}
-		if (!entity.getWorld().getName().equalsIgnoreCase("Saragandes")) {
+		DREFilter plugin = DREFilter.getInstance();
+		if (!plugin.getConfigManager().getAffectedWorldList().contains(entity.getWorld().getName())) {
 			return;
 		}
 		if (item.hasItemMeta() && item.getItemMeta().hasEnchants()) {
-			DREFilter plugin = DREFilter.getInstance();
 			ArrayList<NamespacedKey> disabledEnchants = plugin.getConfigManager().getDisabledEnchants();
 			HashMap<NamespacedKey, Integer> enchantmentValues = plugin.getConfigManager().getEnchantmentValues();
 

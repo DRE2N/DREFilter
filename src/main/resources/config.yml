@@ -7,7 +7,7 @@
 #          To load your changes on the running server, use the /drefilter reload command.
 
 # every world that is listed here will be affected by the filter.
-effectedWorld:
+affectedWorlds:
   - "Saragandes"
 
 # if true: all villager interactions will get canceled.
@@ -58,3 +58,8 @@ enchantments:
 #  IMPALING: null
 #  LOYALTY: null
 #  PIERCING: null
+
+# test feature
+replaceItems:
+  # material
+  DIAMOND_SWORD: "IRON_SWORD"
