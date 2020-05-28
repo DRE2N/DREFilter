@@ -1,0 +1,10 @@
+name: DREFilter
+version: 1.0
+main: de.fyreum.drefilter.DREFilter
+api-version: 1.13
+authors: [Fyreum]
+description: Filter für Verzauberungen und mehr.
+website: erethon.de
+commands:
+  drefilter:
+    description: reloads the plugin

@@ -1,0 +1,60 @@
+
+# +------------------------------------------------------+
+# |               DREFilter Configuration                |
+# +------------------------------------------------------+
+
+# Note:    You can change these options while the server is running.
+#          To load your changes on the running server, use the /drefilter reload command.
+
+# every world that is listed here will be affected by the filter.
+effectedWorld:
+  - "Saragandes"
+
+# if true: all villager interactions will get canceled.
+# if false: default interactions
+villagerDisabled: true
+
+# enchantment list
+# enabled:  Write down the maximum level of the enchantment that is allowed.
+#           Higher level will get downgraded to the maximum allowed one.
+#           If the number is 0 or below: the enchantment will be removed.
+
+# disabled: Enchantments that aren't listed won't be affected by the filter.
+#           Remove the '#' in front of the enchantment to enable the filter on it.
+#           Enabled enchantments with a value of null won't be affected either.
+enchantments:
+  DAMAGE_ALL: 2
+#  DAMAGE_ARTHROPODS: null
+#  DAMAGE_UNDEAD: null
+  ARROW_DAMAGE: 2
+#  ARROW_INFINITE: null
+  ARROW_KNOCKBACK: 1
+  ARROW_FIRE: 0
+  PROTECTION_ENVIRONMENTAL: 1
+  PROTECTION_FIRE: 0
+  PROTECTION_PROJECTILE: 0
+  PROTECTION_EXPLOSIONS: 0
+#  PROTECTION_FALL: null
+  THORNS: 0
+  SWEEPING_EDGE: 0
+#  FIRE_ASPECT: null
+#  KNOCKBACK: null
+#  LOOT_BONUS_MOBS: null
+#  LOOT_BONUS_BLOCKS: null
+#  DIG_SPEED: null
+#  SILK_TOUCH: null
+#  DURABILITY: null
+#  MENDING: null
+#  FROST_WALKER: null
+#  WATER_WORKER: null
+#  DEPTH_STRIDER: null
+#  OXYGEN: null
+#  RIPTIDE: null
+#  CHANNELING: null
+#  VANISHING_CURSE: null
+#  BINDING_CURSE: null
+#  LUCK: null
+#  LURE: null
+#  IMPALING: null
+#  LOYALTY: null
+#  PIERCING: null
