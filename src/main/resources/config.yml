@@ -58,8 +58,3 @@ enchantments:
 #  IMPALING: null
 #  LOYALTY: null
 #  PIERCING: null
-
-# test feature
-replaceItems:
-  # material
-  DIAMOND_SWORD: "IRON_SWORD"

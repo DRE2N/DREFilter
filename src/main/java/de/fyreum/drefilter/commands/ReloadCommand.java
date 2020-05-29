@@ -10,6 +10,7 @@ public class ReloadCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // reloads if the args are correct and the player has the right permission.
         if (!sender.hasPermission("drefilter.reload")) {
             sender.sendMessage(ChatColor.RED + "Du hast keine Berechtigung, um diesen Befehl ausführen zu dürfen.");
             return false;

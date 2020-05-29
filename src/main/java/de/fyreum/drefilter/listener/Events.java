@@ -1,8 +1,7 @@
-package de.fyreum.drefilter.Listener;
+package de.fyreum.drefilter.listener;
 
 import de.fyreum.drefilter.DREFilter;
-import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
+import de.fyreum.drefilter.filter.EnchantmentFilter;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,80 +13,65 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+public class Events implements Listener {
 
-public class Filter implements Listener {
-	// cancels the interaction between Player and Villager
+	private EnchantmentFilter enchantmentFilter = new EnchantmentFilter();
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onInteract(PlayerInteractEntityEvent event) {
+		// cancels the interaction between Player and Villager
 		if (event.getRightClicked() instanceof Villager && DREFilter.getInstance().getConfigManager().isVillagerDisabled()) {
 			event.setCancelled(true);
 		}
 	}
+
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent event) {
 		HumanEntity damager;
+		// sets the player who did the damage in this event.
 		if (event.getDamager() instanceof Player) {
 			damager = (HumanEntity) event.getDamager();
 		} else {
 			if (!(event.getDamager() instanceof Arrow) || !(((Arrow) event.getDamager()).getShooter() instanceof HumanEntity)) {
 				return;
 			}
+			// sets the damager to the shooter if the event.getDamager() is an arrow.
 			damager = (HumanEntity) ((Arrow) event.getDamager()).getShooter();
 		}
 		assert damager != null;
-		patchItem(damager, damager.getInventory().getItemInMainHand());
-		patchItem(damager, damager.getInventory().getItemInOffHand());
-
+		// calls the patchItem() method for both hands of the player.
+		enchantmentFilter.patchItem(damager, damager.getInventory().getItemInMainHand());
+		enchantmentFilter.patchItem(damager, damager.getInventory().getItemInOffHand());
+		// continues if the damaged entity is a player.
 		if (!(event.getEntity() instanceof Player)) {
 			return;
 		}
 		HumanEntity damaged = (HumanEntity) event.getEntity();
+		// calls the patchItem() method for the armor content.
 		for (ItemStack armor : damaged.getInventory().getArmorContents()) {
-			patchItem(damaged, armor);
+			enchantmentFilter.patchItem(damaged, armor);
 		}
 	}
 	@EventHandler
 	public void onBreak(BlockBreakEvent event) {
-		patchItem(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
-		patchItem(event.getPlayer(), event.getPlayer().getInventory().getItemInOffHand());
+		// calls the patchItem() method for both of the player hands.
+		enchantmentFilter.patchItem(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
+		enchantmentFilter.patchItem(event.getPlayer(), event.getPlayer().getInventory().getItemInOffHand());
+		// test message
 		event.getPlayer().sendMessage(event.getPlayer().getInventory().getItemInMainHand().toString());
 	}
 	@EventHandler
 	public void onFish(PlayerFishEvent event) {
+		// patches all fished items.
 		if (event.getCaught() instanceof Item) {
-			patchItem(event.getPlayer(), ((Item) event.getCaught()).getItemStack());
+			enchantmentFilter.patchItem(event.getPlayer(), ((Item) event.getCaught()).getItemStack());
 		}
 	}
 	@EventHandler
     public void onClick(InventoryClickEvent event) {
+		// test message
 		event.getWhoClicked().sendMessage(event.getCurrentItem().toString());
-		patchItem(event.getWhoClicked(), event.getCurrentItem());
+		enchantmentFilter.patchItem(event.getWhoClicked(), event.getCurrentItem());
     }
 
-	public void patchItem(HumanEntity entity, ItemStack item) {
-		if (item == null) {
-			return;
-		}
-		DREFilter plugin = DREFilter.getInstance();
-		if (!plugin.getConfigManager().getAffectedWorldList().contains(entity.getWorld().getName())) {
-			return;
-		}
-		if (item.hasItemMeta() && item.getItemMeta().hasEnchants()) {
-			ArrayList<NamespacedKey> disabledEnchants = plugin.getConfigManager().getDisabledEnchants();
-			HashMap<NamespacedKey, Integer> enchantmentValues = plugin.getConfigManager().getEnchantmentValues();
-
-			for(Map.Entry<Enchantment, Integer> enchant : item.getEnchantments().entrySet()) {
-                if (disabledEnchants.contains(enchant.getKey().getKey())) {
-                    item.removeEnchantment(enchant.getKey());
-                    continue;
-                }
-                if (enchant.getValue() > enchantmentValues.get(enchant.getKey().getKey())) {
-                    item.addEnchantment(enchant.getKey(), enchantmentValues.get(enchant.getKey().getKey()));
-                }
-            }
-		}
-	}
 }

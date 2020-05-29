@@ -2,6 +2,7 @@ package de.fyreum.drefilter.config;
 
 import de.fyreum.drefilter.DREFilter;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 
 import java.util.ArrayList;
@@ -16,28 +17,39 @@ public class ConfigManager {
     private ArrayList<NamespacedKey> disabledEnchants = new ArrayList<>();
     private List<String> affectedWorldList = new ArrayList<>();
 
+    // loads all data out of the config.
     public void load() {
         DREFilter plugin = DREFilter.getInstance();
-        villagerDisabled = plugin.getConfig().getBoolean("villagerDisabled");
-        affectedWorldList = plugin.getConfig().getStringList("affectedWorlds");
+        FileConfiguration config = plugin.getConfig();
+        villagerDisabled = config.getBoolean("villagerDisabled");
+        affectedWorldList = config.getStringList("affectedWorlds");
+        // gets the value for each enchantment that exist out of the config.
         for (Enchantment enchantment : Enchantment.values()) {
-            if (plugin.getConfig().get("enchantments." + enchantment.getName()) == null) {
+            if (config.get("enchantments." + enchantment.getName()) == null) {
+                // sets the maximum level of the given enchantment to the maximum Integer value.
                 enchantmentValues.put(enchantment.getKey(), Integer.MAX_VALUE);
                 continue;
             }
-            if (plugin.getConfig().getInt("enchantments." + enchantment.getName()) <= 0) {
+            if (config.getInt("enchantments." + enchantment.getName()) <= 0) {
+                // adds the enchant to the list of enchantments that will be removed.
                 disabledEnchants.add(enchantment.getKey());
                 continue;
             }
-            enchantmentValues.put(enchantment.getKey(), plugin.getConfig().getInt("enchantments." + enchantment.getName()));
+            // sets the maximum level of the given enchantment to the loaded level.
+            enchantmentValues.put(enchantment.getKey(), config.getInt("enchantments." + enchantment.getName()));
         }
     }
 
     public void reload() {
+        // clears all the loaded data.
         enchantmentValues.clear();
         disabledEnchants.clear();
+        affectedWorldList.clear();
+        // loads the config data again.
         load();
     }
+
+    // getter
 
     public List<String> getAffectedWorldList() {
         return affectedWorldList;

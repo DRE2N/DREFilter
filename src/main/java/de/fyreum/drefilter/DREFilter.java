@@ -1,6 +1,6 @@
 package de.fyreum.drefilter;
 
-import de.fyreum.drefilter.Listener.Filter;
+import de.fyreum.drefilter.listener.Events;
 import de.fyreum.drefilter.commands.ReloadCommand;
 import de.fyreum.drefilter.config.ConfigManager;
 import org.bukkit.Bukkit;
@@ -14,8 +14,11 @@ public final class DREFilter extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        Bukkit.getPluginManager().registerEvents(new Filter(), this);
+        // registers the Listener.
+        Bukkit.getPluginManager().registerEvents(new Events(), this);
+        // calls the load() function.
         load();
+        // command executor:
         getCommand("drefilter").setExecutor(new ReloadCommand());
         System.out.println("[DREFilter] wurde geladen.");
     }
@@ -29,6 +32,7 @@ public final class DREFilter extends JavaPlugin {
     }
 
     private void load() {
+        // saved the default config and calls the lod() method of the ConfigManager.
         saveDefaultConfig();
         manager = new ConfigManager();
         manager.load();
