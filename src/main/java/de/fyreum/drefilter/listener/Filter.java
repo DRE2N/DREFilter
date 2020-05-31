@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -72,7 +73,8 @@ public class Filter implements Listener {
 	}
 	@EventHandler
     public void onClick(InventoryClickEvent event) {
-		patchItem(event.getWhoClicked(), event.getCurrentItem());
+		ItemStack item = event.getCurrentItem();
+		patchItem(event.getWhoClicked(), item);
     }
 
 	public void patchItem(HumanEntity entity, ItemStack item) {
@@ -84,7 +86,6 @@ public class Filter implements Listener {
 		if (!plugin.getConfigManager().getAffectedWorldList().contains(entity.getWorld().getName())) {
 			return;
 		}
-		runItemFilter(item);
 		// looking for the itemMeta and enchantments.
 		if (item.hasItemMeta() && item.getItemMeta().hasEnchants()) {
 			// gets the enchantment values and disabled enchants.
@@ -103,6 +104,7 @@ public class Filter implements Listener {
 				}
 			}
 		}
+		runItemFilter(item);
 	}
 
 	public void runItemFilter(ItemStack item) {
