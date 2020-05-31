@@ -64,7 +64,6 @@ public class Filter implements Listener {
 		patchItem(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
 		patchItem(event.getPlayer(), event.getPlayer().getInventory().getItemInOffHand());
 		// test message
-		event.getPlayer().sendMessage(event.getPlayer().getInventory().getItemInMainHand().toString());
 	}
 	@EventHandler
 	public void onFish(PlayerFishEvent event) {
@@ -76,7 +75,6 @@ public class Filter implements Listener {
 	@EventHandler
     public void onClick(InventoryClickEvent event) {
 		// test message
-		event.getWhoClicked().sendMessage(event.getCurrentItem().toString());
 		patchItem(event.getWhoClicked(), event.getCurrentItem());
     }
 
