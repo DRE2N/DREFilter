@@ -46,8 +46,8 @@ public final class DREFilter extends JavaPlugin {
         return manager;
     }
 
-
     public FilterItems getFilterItems() {
         return filterItems;
     }
+
 }

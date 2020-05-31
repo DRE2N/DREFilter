@@ -113,14 +113,17 @@ public class Filter implements Listener {
 	public void runItemFilter(ItemStack item) {
 		FilterItems filterItems = DREFilter.getInstance().getFilterItems();
 
-		filterItems.getFilteredMaterials().forEach((key, material) -> {
-			if (item.getType().equals(material)) {
-				if (filterItems.getReplaceItems().get(key) == null) {
+		filterItems.getFilteredMaterials().forEach((filteredMaterial, itemStack) -> {
+			if (item.getType().equals(filteredMaterial)) {
+				if (itemStack == null) {
 					item.setAmount(0);
 					return;
 				}
-				item.setItemMeta(filterItems.getReplaceItems().get(key).getItemMeta());
-				item.setType(filterItems.getReplaceItems().get(key).getType());
+				item.setType(itemStack.getType());
+				item.setItemMeta(itemStack.getItemMeta());
+				item.setAmount(itemStack.getAmount());
+				item.setData(itemStack.getData());
+				return;
 			}
 		});
 	}

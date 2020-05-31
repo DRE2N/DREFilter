@@ -8,22 +8,15 @@ import java.util.HashMap;
 
 public class FilterItems {
 
-    private HashMap<Integer, Material> filteredMaterials = new HashMap<>();
-    private HashMap<Integer, ItemStack> replaceItems = new HashMap<>();
+    private HashMap<Material, ItemStack> filteredMaterials = new HashMap<>();
 
     public void setup() {
-        filteredMaterials.put(0, Material.DIAMOND_SWORD);
-        replaceItems.put(0, new ItemBuilder(Material.IRON_SWORD).addLore(ChatColor.DARK_PURPLE + "Der Schaden wurde entfernt").removeDamage().create());
-
-        filteredMaterials.put(1, Material.NETHER_STAR);
-        replaceItems.put(1, null);
+        filteredMaterials.put(Material.DIAMOND_SWORD, new ItemBuilder(Material.IRON_SWORD).addLore(ChatColor.DARK_PURPLE + "Der Schaden wurde entfernt")
+                .removeDamageHidden().create());
+        filteredMaterials.put(Material.NETHER_STAR, null);
     }
 
-    public HashMap<Integer,Material> getFilteredMaterials() {
+    public HashMap<Material, ItemStack> getFilteredMaterials() {
         return filteredMaterials;
-    }
-
-    public HashMap<Integer, ItemStack> getReplaceItems() {
-        return replaceItems;
     }
 }

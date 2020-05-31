@@ -1,10 +1,11 @@
 package de.fyreum.drefilter.items;
 
+import de.fyreum.drefilter.DREFilter;
 import de.fyreum.drefilter.exceptions.ItemBuilderException;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -60,14 +61,21 @@ public class ItemBuilder {
 
     public ItemBuilder addLore(String s) {
         if (isPotionMeta) {
-            potionMeta.setDisplayName(s);
+            if (potionMeta.getLore() == null) {
+                potionMeta.setLore(new ArrayList<>());
+            }
+            List<String> lore = potionMeta.getLore();
+            lore.add(s);
+            potionMeta.setLore(lore);
             item.setItemMeta(potionMeta);
             return this;
         }
         if (meta.getLore() == null) {
             meta.setLore(new ArrayList<>());
         }
-        meta.getLore().add(s);
+        List<String> lore = meta.getLore();
+        lore.add(s);
+        meta.setLore(lore);
         item.setItemMeta(meta);
         return this;
     }
@@ -97,7 +105,15 @@ public class ItemBuilder {
     }
 
     public ItemBuilder removeDamage() {
-        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "noDamage", 0, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
+        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "noDamage", -1, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
+        item.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemBuilder removeDamageHidden() {
+        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "noDamage", -1, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        item.setItemMeta(meta);
         return this;
     }
 
