@@ -1,7 +1,6 @@
 package de.fyreum.drefilter.listener;
 
 import de.fyreum.drefilter.DREFilter;
-import de.fyreum.drefilter.config.ConfigManager;
 import de.fyreum.drefilter.items.FilterItems;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -63,7 +62,6 @@ public class Filter implements Listener {
 		// calls the patchItem() method for both of the player hands.
 		patchItem(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
 		patchItem(event.getPlayer(), event.getPlayer().getInventory().getItemInOffHand());
-		// test message
 	}
 	@EventHandler
 	public void onFish(PlayerFishEvent event) {
@@ -74,7 +72,6 @@ public class Filter implements Listener {
 	}
 	@EventHandler
     public void onClick(InventoryClickEvent event) {
-		// test message
 		patchItem(event.getWhoClicked(), event.getCurrentItem());
     }
 
@@ -88,7 +85,7 @@ public class Filter implements Listener {
 			return;
 		}
 		runItemFilter(item);
-		// looking for the itemMeta and enchantsments.
+		// looking for the itemMeta and enchantments.
 		if (item.hasItemMeta() && item.getItemMeta().hasEnchants()) {
 			// gets the enchantment values and disabled enchants.
 			ArrayList<NamespacedKey> disabledEnchants = plugin.getConfigManager().getDisabledEnchants();
