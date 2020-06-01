@@ -2,6 +2,7 @@ package de.fyreum.drefilter.listener;
 
 import de.fyreum.drefilter.DREFilter;
 import de.fyreum.drefilter.items.FilterItems;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -11,14 +12,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Filter implements Listener {
 
@@ -116,13 +114,18 @@ public class Filter implements Listener {
 					item.setAmount(0);
 					return;
 				}
-				item.setType(itemStack.getType());
+				if (item.getItemMeta().getLore() != null && filterItems.getLoreList().contains(item.getItemMeta().getLore().get(0))) {
+					return;
+				}
+				Map<Enchantment, Integer> enchantmentMap = new HashMap<>();
+				item.getEnchantments().forEach(enchantmentMap::put);
 				item.setItemMeta(itemStack.getItemMeta());
-				item.setAmount(itemStack.getAmount());
-				item.setData(itemStack.getData());
+				if (!enchantmentMap.isEmpty()) {
+					item.addEnchantments(enchantmentMap);
+				}
+				item.setType(itemStack.getType());
 				return;
 			}
 		});
 	}
-
 }
