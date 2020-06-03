@@ -2,7 +2,6 @@ package de.fyreum.drefilter.listener;
 
 import de.fyreum.drefilter.DREFilter;
 import de.fyreum.drefilter.items.FilterItems;
-import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;

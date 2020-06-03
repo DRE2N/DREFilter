@@ -1,6 +1,5 @@
 package de.fyreum.drefilter.items;
 
-import de.fyreum.drefilter.DREFilter;
 import de.fyreum.drefilter.exceptions.ItemBuilderException;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
