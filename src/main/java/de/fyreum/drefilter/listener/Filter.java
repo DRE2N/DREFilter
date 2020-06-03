@@ -122,14 +122,20 @@ public class Filter implements Listener {
 				item.getEnchantments().forEach(enchantmentMap::put);
 				// merges the item meta
 				ItemMeta meta = itemStack.getItemMeta();
-				item.getItemMeta().getLore().forEach(s -> {
-					if (meta.getLore() == null) {
-						meta.setLore(new ArrayList<>());
+				if (item.getItemMeta() != null) {
+					if (item.getItemMeta().getLore() == null) {
+						item.getItemMeta().setLore(new ArrayList<>());
+					} else {
+						item.getItemMeta().getLore().forEach(s -> {
+							if (meta.getLore() == null) {
+								meta.setLore(new ArrayList<>());
+							}
+							List<String> lore = meta.getLore();
+							lore.add(s);
+							meta.setLore(lore);
+						});
 					}
-					List<String> lore = meta.getLore();
-					lore.add(s);
-					meta.setLore(lore);
-				});
+				}
 				item.setItemMeta(meta);
 				// adds the enchantments
 				if (!enchantmentMap.isEmpty()) {
