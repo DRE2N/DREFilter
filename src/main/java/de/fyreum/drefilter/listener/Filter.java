@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
@@ -116,9 +117,21 @@ public class Filter implements Listener {
 				if (item.getItemMeta().getLore() != null && filterItems.getLoreList().contains(item.getItemMeta().getLore().get(0))) {
 					return;
 				}
+				// gets the enchantments to add
 				Map<Enchantment, Integer> enchantmentMap = new HashMap<>();
 				item.getEnchantments().forEach(enchantmentMap::put);
-				item.setItemMeta(itemStack.getItemMeta());
+				// merges the item meta
+				ItemMeta meta = itemStack.getItemMeta();
+				item.getItemMeta().getLore().forEach(s -> {
+					if (meta.getLore() == null) {
+						meta.setLore(new ArrayList<>());
+					}
+					List<String> lore = meta.getLore();
+					lore.add(s);
+					meta.setLore(lore);
+				});
+				item.setItemMeta(meta);
+				// adds the enchantments
 				if (!enchantmentMap.isEmpty()) {
 					item.addEnchantments(enchantmentMap);
 				}
