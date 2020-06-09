@@ -2,7 +2,7 @@ package de.fyreum.drefilter;
 
 import de.fyreum.drefilter.items.FilterItems;
 import de.fyreum.drefilter.listener.Filter;
-import de.fyreum.drefilter.commands.ReloadCommand;
+import de.fyreum.drefilter.commands.CommandManager;
 import de.fyreum.drefilter.config.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,7 +21,7 @@ public final class DREFilter extends JavaPlugin {
         // calls the load() function.
         load();
         // command executor:
-        getCommand("drefilter").setExecutor(new ReloadCommand());
+        getCommand("drefilter").setExecutor(new CommandManager());
         System.out.println("[DREFilter] wurde geladen.");
     }
 
