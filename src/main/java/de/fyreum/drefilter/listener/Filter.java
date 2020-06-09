@@ -98,7 +98,7 @@ public class Filter implements Listener {
 				}
 				// downgrades the enchant, if the level is higher then the maximum value.
 				if (enchant.getValue() > enchantmentValues.get(enchant.getKey().getKey())) {
-					item.addEnchantment(enchant.getKey(), enchantmentValues.get(enchant.getKey().getKey()));
+					item.getItemMeta().addEnchant(enchant.getKey(), enchantmentValues.get(enchant.getKey().getKey()), false);
 				}
 			}
 		}
