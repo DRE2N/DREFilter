@@ -98,7 +98,7 @@ public class Filter implements Listener {
 				}
 				// downgrades the enchant, if the level is higher then the maximum value.
 				if (enchant.getValue() > enchantmentValues.get(enchant.getKey().getKey())) {
-					item.getItemMeta().addEnchant(enchant.getKey(), enchantmentValues.get(enchant.getKey().getKey()), false);
+					item.addUnsafeEnchantment(enchant.getKey(), enchantmentValues.get(enchant.getKey().getKey()));
 				}
 			}
 		}
@@ -139,10 +139,16 @@ public class Filter implements Listener {
 				item.setItemMeta(meta);
 				// adds the enchantments
 				if (!enchantmentMap.isEmpty()) {
-					item.addEnchantments(enchantmentMap);
+					HashMap<NamespacedKey, Integer> enchantmentValues = DREFilter.getInstance().getConfigManager().getEnchantmentValues();
+					enchantmentMap.forEach((enchantment, integer) -> {
+						if (integer > enchantmentValues.get(enchantment.getKey())) {
+							item.addUnsafeEnchantment(enchantment, integer);
+							return;
+						}
+						item.addUnsafeEnchantment(enchantment, integer);
+					});
 				}
 				item.setType(itemStack.getType());
-				return;
 			}
 		});
 	}
