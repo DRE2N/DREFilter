@@ -142,7 +142,7 @@ public class Filter implements Listener {
 					HashMap<NamespacedKey, Integer> enchantmentValues = DREFilter.getInstance().getConfigManager().getEnchantmentValues();
 					enchantmentMap.forEach((enchantment, integer) -> {
 						if (integer > enchantmentValues.get(enchantment.getKey())) {
-							item.addUnsafeEnchantment(enchantment, integer);
+							item.addUnsafeEnchantment(enchantment, enchantmentValues.get(enchantment.getKey()));
 							return;
 						}
 						item.addUnsafeEnchantment(enchantment, integer);
