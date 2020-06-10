@@ -27,43 +27,43 @@ public class FilterItems {
                         GREEN + "Schmied: " + GOLD + "Schmiedemeister",
                         GREEN + "Herkunft: " + GOLD + "Gladeia"))
                 .create());
-        filteredMaterials.put(Material.DIAMOND_CHESTPLATE, new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayName(WHITE + "Schuppenrüstung")
+        filteredMaterials.put(Material.DIAMOND_CHESTPLATE, new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayName(WHITE + "Schuppenr\u00fcstung")
                 .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                         GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
                         GREEN + "Schmied: " + GOLD + "Schmiedemeister",
                         GREEN + "Herkunft: " + GOLD + "Gladeia"))
                 .create());
-        filteredMaterials.put(Material.DIAMOND_LEGGINGS, new ItemBuilder(Material.IRON_LEGGINGS).setDisplayName(WHITE + "Schuppenrüstung")
+        filteredMaterials.put(Material.DIAMOND_LEGGINGS, new ItemBuilder(Material.IRON_LEGGINGS).setDisplayName(WHITE + "Schuppenr\u00fcstung")
                 .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                         GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
                         GREEN + "Schmied: " + GOLD + "Schmiedemeister",
                         GREEN + "Herkunft: " + GOLD + "Gladeia"))
                 .create());
-        filteredMaterials.put(Material.DIAMOND_BOOTS, new ItemBuilder(Material.IRON_BOOTS).setDisplayName(WHITE + "Schuppenrüstung")
+        filteredMaterials.put(Material.DIAMOND_BOOTS, new ItemBuilder(Material.IRON_BOOTS).setDisplayName(WHITE + "Schuppenr\u00fcstung")
                 .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                         GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
                         GREEN + "Schmied: " + GOLD + "Schmiedemeister",
                         GREEN + "Herkunft: " + GOLD + "Gladeia"))
                 .create());
-        filteredMaterials.put(Material.IRON_HELMET, new ItemBuilder(Material.IRON_HELMET).setDisplayName(WHITE + "Schuppenrüstung")
+        filteredMaterials.put(Material.IRON_HELMET, new ItemBuilder(Material.IRON_HELMET).setDisplayName(WHITE + "Schuppenr\u00fcstung")
                 .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                         GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
                         GREEN + "Schmied: " + GOLD + "Schmiedemeister",
                         GREEN + "Herkunft: " + GOLD + "Gladeia"))
                 .create());
-        filteredMaterials.put(Material.IRON_CHESTPLATE, new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayName(WHITE + "Schuppenrüstung")
+        filteredMaterials.put(Material.IRON_CHESTPLATE, new ItemBuilder(Material.IRON_CHESTPLATE).setDisplayName(WHITE + "Schuppenr\u00fcstung")
                 .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                         GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
                         GREEN + "Schmied: " + GOLD + "Schmiedemeister",
                         GREEN + "Herkunft: " + GOLD + "Gladeia"))
                 .create());
-        filteredMaterials.put(Material.IRON_LEGGINGS, new ItemBuilder(Material.IRON_LEGGINGS).setDisplayName(WHITE + "Schuppenrüstung")
+        filteredMaterials.put(Material.IRON_LEGGINGS, new ItemBuilder(Material.IRON_LEGGINGS).setDisplayName(WHITE + "Schuppenr\u00fcstung")
                 .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                         GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
                         GREEN + "Schmied: " + GOLD + "Schmiedemeister",
                         GREEN + "Herkunft: " + GOLD + "Gladeia"))
                 .create());
-        filteredMaterials.put(Material.IRON_BOOTS, new ItemBuilder(Material.IRON_BOOTS).setDisplayName(WHITE + "Schuppenrüstung")
+        filteredMaterials.put(Material.IRON_BOOTS, new ItemBuilder(Material.IRON_BOOTS).setDisplayName(WHITE + "Schuppenr\u00fcstung")
                 .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                         GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
                         GREEN + "Schmied: " + GOLD + "Schmiedemeister",
