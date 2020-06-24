@@ -1,7 +1,7 @@
 name: DREFilter
-version: 1.0.4
+version: 1.0.5
 main: de.fyreum.drefilter.DREFilter
-api-version: 1.13
+api-version: 1.15
 authors: [Fyreum]
 description: Filter für Verzauberungen und mehr.
 website: erethon.de

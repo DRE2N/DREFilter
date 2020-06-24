@@ -13,8 +13,8 @@ public class ConfigManager {
 
     private boolean villagerDisabled;
 
-    private HashMap<NamespacedKey, Integer> enchantmentValues = new HashMap<>();
-    private ArrayList<NamespacedKey> disabledEnchants = new ArrayList<>();
+    private final HashMap<NamespacedKey, Integer> enchantmentValues = new HashMap<>();
+    private final ArrayList<NamespacedKey> disabledEnchants = new ArrayList<>();
     private List<String> affectedWorldList = new ArrayList<>();
 
     // loads all data out of the config.

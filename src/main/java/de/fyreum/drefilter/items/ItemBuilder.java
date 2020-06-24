@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class ItemBuilder {
 
-    private ItemStack item;
+    private final ItemStack item;
     private ItemMeta meta;
     private PotionMeta potionMeta;
     private boolean isPotionMeta = false;

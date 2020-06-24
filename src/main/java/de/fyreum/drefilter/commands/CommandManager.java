@@ -18,7 +18,7 @@ public class CommandManager implements CommandExecutor {
         // reloads if the args are correct and the player has the right permission.
         if (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("r")) {
             if (!sender.hasPermission("drefilter.reload")) {
-                sender.sendMessage(ChatColor.RED + "Du hast keine Berechtigung, um diesen Befehl ausführen zu dürfen.");
+                sender.sendMessage(ChatColor.RED + "Du hast keine Berechtigung, um diesen Befehl ausf\u00fchren zu d\u00fcrfen.");
                 return false;
             }
             DREFilter.getInstance().getConfigManager().reload();
@@ -28,12 +28,12 @@ public class CommandManager implements CommandExecutor {
         // sends the current ItemStack.toString() to the player.
         if (args[0].equalsIgnoreCase("item")) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.RED + "Du musst ein Spieler sein, um diesen Befehl ausführen zu dürfen.");
+                sender.sendMessage(ChatColor.RED + "Du musst ein Spieler sein, um diesen Befehl ausf\u00fchren zu d\u00fcrfen.");
                 return false;
             }
             Player player = (Player) sender;
             if (!(player.hasPermission("drefilter.item"))) {
-                player.sendMessage(ChatColor.RED + "Du hast keine Berechtigung, um diesen Befehl ausführen zu dürfen.");
+                player.sendMessage(ChatColor.RED + "Du hast keine Berechtigung, um diesen Befehl ausf\u00fchren zu d\u00fcrfen.");
                 return false;
             }
             player.sendMessage(player.getInventory().getItemInMainHand().toString());

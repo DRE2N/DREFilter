@@ -11,8 +11,8 @@ import static org.bukkit.ChatColor.*;
 
 public class FilterItems {
 
-    private HashMap<Material, ItemStack> filteredMaterials = new HashMap<>();
-    private List<String> loreList = Arrays.asList(GRAY + "Schuppenr\u00fcstung", GRAY + "Plattenr\u00fcstung", GRAY + "Dolch", GRAY + "Katana", GRAY + "Langschwert",
+    private final HashMap<Material, ItemStack> filteredMaterials = new HashMap<>();
+    private final List<String> loreList = Arrays.asList(GRAY + "Schuppenr\u00fcstung", GRAY + "Plattenr\u00fcstung", GRAY + "Dolch", GRAY + "Katana", GRAY + "Langschwert",
             GRAY + "Ritterschwert", GRAY + "Rapier", GRAY + "Geringer Spielerschaden");
 
     public void setup() {
