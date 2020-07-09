@@ -71,8 +71,7 @@ public class Filter implements Listener {
 	}
 	@EventHandler
     public void onClick(InventoryClickEvent event) {
-		ItemStack item = event.getCurrentItem();
-		patchItem(event.getWhoClicked(), item);
+		patchItem(event.getWhoClicked(), event.getCurrentItem());
     }
 
 	public void patchItem(HumanEntity entity, ItemStack item) {
