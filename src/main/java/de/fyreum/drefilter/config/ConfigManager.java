@@ -46,6 +46,7 @@ public class ConfigManager {
         disabledEnchants.clear();
         affectedWorldList.clear();
         // loads the config data again.
+        DREFilter.getInstance().reloadConfig();
         load();
     }
 
