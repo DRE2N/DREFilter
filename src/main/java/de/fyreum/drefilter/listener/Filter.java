@@ -42,9 +42,14 @@ public class Filter implements Listener {
 			damager = (HumanEntity) ((Arrow) event.getDamager()).getShooter();
 		}
 		assert damager != null;
+		// reduces the damage of certain weapons
+		DREFilter plugin = DREFilter.getInstance();
+		if (damager.getInventory().getItemInMainHand().getItemMeta().getLore() != null &&
+				damager.getInventory().getItemInMainHand().getItemMeta().getLore().contains(plugin.getFilterItems().getReducedPlayerDamageLore())) {
+			event.setDamage(event.getDamage()*plugin.getConfigManager().getReducedDamageMultiplier());
+		}
 		// calls the patchItem() method for both hands of the player.
 		patchItem(damager, damager.getInventory().getItemInMainHand());
-
 		patchItem(damager, damager.getInventory().getItemInOffHand());
 		// continues if the damaged entity is a player.
 		if (!(event.getEntity() instanceof Player)) {

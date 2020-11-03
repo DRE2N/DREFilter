@@ -12,6 +12,7 @@ import java.util.List;
 public class ConfigManager {
 
     private boolean villagerDisabled;
+    private double reducedDamageMultiplier;
 
     private final HashMap<NamespacedKey, Integer> enchantmentValues = new HashMap<>();
     private final ArrayList<NamespacedKey> disabledEnchants = new ArrayList<>();
@@ -22,6 +23,7 @@ public class ConfigManager {
         DREFilter plugin = DREFilter.getInstance();
         FileConfiguration config = plugin.getConfig();
         villagerDisabled = config.getBoolean("villagerDisabled");
+        reducedDamageMultiplier = config.getDouble("reducedDamageMultiplier");
         affectedWorldList = config.getStringList("affectedWorlds");
         // gets the value for each enchantment that exist out of the config.
         for (Enchantment enchantment : Enchantment.values()) {
@@ -62,6 +64,10 @@ public class ConfigManager {
 
     public ArrayList<NamespacedKey> getDisabledEnchants() {
         return disabledEnchants;
+    }
+
+    public double getReducedDamageMultiplier() {
+        return reducedDamageMultiplier;
     }
 
     public boolean isVillagerDisabled() {

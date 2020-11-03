@@ -12,9 +12,10 @@ import static org.bukkit.ChatColor.*;
 
 public class FilterItems {
 
+    private final String reducedPlayerDamageLore = GRAY + "Geringer Spielerschaden";
     private final HashMap<Material, ItemStack> filteredMaterials = new HashMap<>();
     private final List<String> loreList = Arrays.asList(GRAY + "Schuppenr\u00fcstung", GRAY + "Plattenr\u00fcstung", GRAY + "Dolch", GRAY + "Katana", GRAY + "Langschwert",
-            GRAY + "Ritterschwert", GRAY + "Rapier", GRAY + "Geringer Spielerschaden");
+            GRAY + "Ritterschwert", GRAY + "Rapier", reducedPlayerDamageLore);
     private final ItemStack plateHelmet = new ItemBuilder(Material.IRON_HELMET).setDisplayName(WHITE + "Schuppenr\u00fcstung")
             .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                     GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
@@ -41,10 +42,9 @@ public class FilterItems {
             .create();
 
     public void setup() {
-        filteredMaterials.put(Material.DIAMOND_SWORD, new ItemBuilder(Material.IRON_SWORD).addLore(GRAY + "Geringer Spielerschaden")
-                .create());
-        filteredMaterials.put(Material.IRON_SWORD, new ItemBuilder(Material.IRON_SWORD).addLore(GRAY + "Geringer Spielerschaden")
-                .create());
+        // materials
+        filteredMaterials.put(Material.DIAMOND_SWORD, new ItemBuilder(Material.IRON_SWORD).addLore(reducedPlayerDamageLore).create());
+        filteredMaterials.put(Material.IRON_SWORD, new ItemBuilder(Material.IRON_SWORD).addLore(reducedPlayerDamageLore).create());
         filteredMaterials.put(Material.NETHER_STAR, null);
         filteredMaterials.put(Material.DIAMOND_HELMET, plateHelmet);
         filteredMaterials.put(Material.DIAMOND_CHESTPLATE, plateChestPlate);
@@ -61,8 +61,13 @@ public class FilterItems {
             filteredMaterials.put(Material.NETHERITE_CHESTPLATE, plateChestPlate);
             filteredMaterials.put(Material.NETHERITE_LEGGINGS, plateLeggings);
             filteredMaterials.put(Material.NETHERITE_BOOTS, plateBoots);
-            filteredMaterials.put(Material.NETHERITE_SWORD, new ItemBuilder(Material.NETHERITE_SWORD).addLore(GRAY + "Geringer Spielerschaden").create());
+            filteredMaterials.put(Material.NETHERITE_AXE, new ItemBuilder(Material.NETHERITE_AXE).addLore(reducedPlayerDamageLore).create());
+            filteredMaterials.put(Material.NETHERITE_SWORD, new ItemBuilder(Material.NETHERITE_SWORD).addLore(reducedPlayerDamageLore).create());
         }
+    }
+
+    public String getReducedPlayerDamageLore() {
+        return reducedPlayerDamageLore;
     }
 
     public HashMap<Material, ItemStack> getFilteredMaterials() {
