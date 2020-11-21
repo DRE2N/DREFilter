@@ -20,6 +20,7 @@ public class ConfigManager {
     private final ArrayList<NamespacedKey> disabledEnchants = new ArrayList<>();
     private List<String> affectedWorldList = new ArrayList<>();
     private ArrayList<String> noDamageItems = new ArrayList<>();
+    private ArrayList<String> ignoreDamageFilterLore = new ArrayList<>();
 
     // loads all data out of the config.
     public void load() {
@@ -30,6 +31,7 @@ public class ConfigManager {
         noDamageItemLore = ChatColor.translateAlternateColorCodes('&', notNull(config.getString("noDamageItemLore")));
         affectedWorldList = config.getStringList("affectedWorlds");
         noDamageItems = (ArrayList<String>) config.getStringList("noDamageItems");
+        ignoreDamageFilterLore = (ArrayList<String>) config.getStringList("ignoreDamageFilterLore");
         // gets the value for each enchantment that exist out of the config.
         for (Enchantment enchantment : Enchantment.values()) {
             if (config.get("enchantments." + enchantment.getName()) == null) {
@@ -61,6 +63,7 @@ public class ConfigManager {
         disabledEnchants.clear();
         affectedWorldList.clear();
         noDamageItems.clear();
+        ignoreDamageFilterLore.clear();
         // loads the config data again.
         DREFilter.getInstance().reloadConfig();
         load();
@@ -82,6 +85,10 @@ public class ConfigManager {
 
     public ArrayList<String> getNoDamageItems() {
         return noDamageItems;
+    }
+
+    public ArrayList<String> getIgnoreDamageFilterLore() {
+        return ignoreDamageFilterLore;
     }
 
     public String getNoDamageItemLore() {

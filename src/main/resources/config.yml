@@ -20,6 +20,11 @@ noDamageItems:
   - "SHOVEL"
   - "HOE"
 
+# if an item has one of the following lore the damage filter won't affect them.
+ignoreDamageFilterLore:
+  - "&7Streitaxt"
+  - "&7Holzfälleraxt"
+
 # this lore will be given to every item with 0 damage.
 noDamageItemLore: "&5Werkzeug"
 

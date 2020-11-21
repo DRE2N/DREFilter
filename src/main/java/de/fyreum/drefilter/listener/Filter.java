@@ -2,6 +2,7 @@ package de.fyreum.drefilter.listener;
 
 import de.fyreum.drefilter.DREFilter;
 import de.fyreum.drefilter.items.FilterItems;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -176,6 +177,13 @@ public class Filter implements Listener {
 	}
 
 	private void handleNoItemDamage(ItemStack item) {
+		if (item.getItemMeta().getLore() != null) {
+			for (String s : plugin.getConfigManager().getIgnoreDamageFilterLore()) {
+				if (item.getItemMeta().getLore().contains(ChatColor.translateAlternateColorCodes('&', s))) {
+					return;
+				}
+			}
+		}
 		for (String noDamageItem : plugin.getConfigManager().getNoDamageItems()) {
 			if (item.getType().name().contains(noDamageItem)) {
 				ItemMeta meta = item.getItemMeta();
