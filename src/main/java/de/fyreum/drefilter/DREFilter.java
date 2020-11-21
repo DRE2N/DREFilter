@@ -17,7 +17,7 @@ public final class DREFilter extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         // registers the Listener.
-        Bukkit.getPluginManager().registerEvents(new Filter(), this);
+        Bukkit.getPluginManager().registerEvents(new Filter(plugin), this);
         // calls the load() function.
         load();
         // command executor:

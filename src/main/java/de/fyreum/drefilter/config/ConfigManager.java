@@ -1,6 +1,7 @@
 package de.fyreum.drefilter.config;
 
 import de.fyreum.drefilter.DREFilter;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -13,10 +14,12 @@ public class ConfigManager {
 
     private boolean villagerDisabled;
     private double reducedDamageMultiplier;
+    private String noDamageItemLore;
 
     private final HashMap<NamespacedKey, Integer> enchantmentValues = new HashMap<>();
     private final ArrayList<NamespacedKey> disabledEnchants = new ArrayList<>();
     private List<String> affectedWorldList = new ArrayList<>();
+    private ArrayList<String> noDamageItems = new ArrayList<>();
 
     // loads all data out of the config.
     public void load() {
@@ -24,7 +27,9 @@ public class ConfigManager {
         FileConfiguration config = plugin.getConfig();
         villagerDisabled = config.getBoolean("villagerDisabled");
         reducedDamageMultiplier = config.getDouble("reducedDamageMultiplier");
+        noDamageItemLore = ChatColor.translateAlternateColorCodes('&', notNull(config.getString("noDamageItemLore")));
         affectedWorldList = config.getStringList("affectedWorlds");
+        noDamageItems = (ArrayList<String>) config.getStringList("noDamageItems");
         // gets the value for each enchantment that exist out of the config.
         for (Enchantment enchantment : Enchantment.values()) {
             if (config.get("enchantments." + enchantment.getName()) == null) {
@@ -42,11 +47,20 @@ public class ConfigManager {
         }
     }
 
+    private String notNull(String s) {
+        if (s == null) {
+            return "";
+        } else {
+            return s;
+        }
+    }
+
     public void reload() {
         // clears all the loaded data.
         enchantmentValues.clear();
         disabledEnchants.clear();
         affectedWorldList.clear();
+        noDamageItems.clear();
         // loads the config data again.
         DREFilter.getInstance().reloadConfig();
         load();
@@ -64,6 +78,14 @@ public class ConfigManager {
 
     public ArrayList<NamespacedKey> getDisabledEnchants() {
         return disabledEnchants;
+    }
+
+    public ArrayList<String> getNoDamageItems() {
+        return noDamageItems;
+    }
+
+    public String getNoDamageItemLore() {
+        return noDamageItemLore;
     }
 
     public double getReducedDamageMultiplier() {

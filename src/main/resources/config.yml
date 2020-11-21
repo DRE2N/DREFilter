@@ -12,6 +12,17 @@ reducedDamageMultiplier: 0.5
 affectedWorlds:
   - "Saragandes"
 
+# every item with a material contained by this list won't deal any damage.
+# to disable a specified tool type, just write the name of the tool type. for example: 'AXT'
+noDamageItems:
+  - "AXE"
+  - "PICKAXE"
+  - "SHOVEL"
+  - "HOE"
+
+# this lore will be given to every item with 0 damage.
+noDamageItemLore: "&5Werkzeug"
+
 # if true: all villager interactions will get canceled.
 # if false: default interactions
 villagerDisabled: true

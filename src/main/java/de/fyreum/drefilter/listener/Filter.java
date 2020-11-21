@@ -3,6 +3,8 @@ package de.fyreum.drefilter.listener;
 import de.fyreum.drefilter.DREFilter;
 import de.fyreum.drefilter.items.FilterItems;
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -13,12 +15,19 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
 public class Filter implements Listener {
+
+	private final DREFilter plugin;
+
+	public Filter(DREFilter plugin) {
+		this.plugin = plugin;
+	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onInteract(PlayerInteractEntityEvent event) {
@@ -43,7 +52,6 @@ public class Filter implements Listener {
 		}
 		assert damager != null;
 		// reduces the damage of certain weapons
-		DREFilter plugin = DREFilter.getInstance();
 		if (damager.getInventory().getItemInMainHand().getItemMeta().getLore() != null &&
 				damager.getInventory().getItemInMainHand().getItemMeta().getLore().contains(plugin.getFilterItems().getReducedPlayerDamageLore())) {
 			event.setDamage(event.getDamage()*plugin.getConfigManager().getReducedDamageMultiplier());
@@ -83,7 +91,6 @@ public class Filter implements Listener {
 		if (item == null) {
 			return;
 		}
-		DREFilter plugin = DREFilter.getInstance();
 		// if the players current world isn't contained by the affectedWorldList the method stops.
 		if (!plugin.getConfigManager().getAffectedWorldList().contains(entity.getWorld().getName())) {
 			return;
@@ -110,7 +117,7 @@ public class Filter implements Listener {
 	}
 
 	public void runItemFilter(ItemStack item) {
-		FilterItems filterItems = DREFilter.getInstance().getFilterItems();
+		FilterItems filterItems = plugin.getFilterItems();
 
 		filterItems.getFilteredMaterials().forEach((filteredMaterial, itemStack) -> {
 			if (item.getType().equals(filteredMaterial)) {
@@ -143,7 +150,7 @@ public class Filter implements Listener {
 				item.setItemMeta(meta);
 				// adds the enchantments
 				if (!enchantmentMap.isEmpty()) {
-					HashMap<NamespacedKey, Integer> enchantmentValues = DREFilter.getInstance().getConfigManager().getEnchantmentValues();
+					HashMap<NamespacedKey, Integer> enchantmentValues = plugin.getConfigManager().getEnchantmentValues();
 					enchantmentMap.forEach((enchantment, integer) -> {
 						if (integer > enchantmentValues.get(enchantment.getKey())) {
 							item.addUnsafeEnchantment(enchantment, enchantmentValues.get(enchantment.getKey()));
@@ -155,5 +162,38 @@ public class Filter implements Listener {
 				item.setType(itemStack.getType());
 			}
 		});
+		if (item.getItemMeta() != null && item.getItemMeta().getAttributeModifiers() != null) {
+			for (AttributeModifier attributeModifier : item.getItemMeta().getAttributeModifiers().values()) {
+				if (attributeModifier == null) {
+					continue;
+				}
+				if (attributeModifier.getName().equalsIgnoreCase("noDamage")) {
+					return;
+				}
+			}
+		}
+		handleNoItemDamage(item);
+	}
+
+	private void handleNoItemDamage(ItemStack item) {
+		for (String noDamageItem : plugin.getConfigManager().getNoDamageItems()) {
+			if (item.getType().name().contains(noDamageItem)) {
+				ItemMeta meta = item.getItemMeta();
+				try {
+					meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,
+							new AttributeModifier("noDamage", -1, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
+					meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+					List<String> lore = meta.getLore();
+					if (lore == null) {
+						lore = new ArrayList<>();
+					}
+					lore.add(plugin.getConfigManager().getNoDamageItemLore());
+					meta.setLore(lore);
+				} catch (IllegalArgumentException i) {
+					i.printStackTrace();
+				}
+				item.setItemMeta(meta);
+			}
+		}
 	}
 }

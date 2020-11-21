@@ -43,6 +43,8 @@ public class FilterItems {
 
     public void setup() {
         // materials
+        filteredMaterials.put(Material.WOODEN_SWORD, new ItemBuilder(Material.WOODEN_SWORD).addLore(reducedPlayerDamageLore).create());
+        filteredMaterials.put(Material.STONE_SWORD, new ItemBuilder(Material.STONE_SWORD).addLore(reducedPlayerDamageLore).create());
         filteredMaterials.put(Material.DIAMOND_SWORD, new ItemBuilder(Material.IRON_SWORD).addLore(reducedPlayerDamageLore).create());
         filteredMaterials.put(Material.IRON_SWORD, new ItemBuilder(Material.IRON_SWORD).addLore(reducedPlayerDamageLore).create());
         filteredMaterials.put(Material.NETHER_STAR, null);

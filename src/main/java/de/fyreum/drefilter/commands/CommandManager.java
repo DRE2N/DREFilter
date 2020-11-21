@@ -22,6 +22,7 @@ public class CommandManager implements CommandExecutor {
                 return false;
             }
             DREFilter.getInstance().getConfigManager().reload();
+            DREFilter.getInstance().saveDefaultConfig();
             sender.sendMessage(ChatColor.GREEN + "DREFilter wurde neugeladen");
             return true;
         }
