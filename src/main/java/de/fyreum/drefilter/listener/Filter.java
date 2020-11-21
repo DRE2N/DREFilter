@@ -55,7 +55,9 @@ public class Filter implements Listener {
 		// reduces the damage of certain weapons
 		if (damager.getInventory().getItemInMainHand().getItemMeta().getLore() != null &&
 				damager.getInventory().getItemInMainHand().getItemMeta().getLore().contains(plugin.getFilterItems().getReducedPlayerDamageLore())) {
-			event.setDamage(event.getDamage()*plugin.getConfigManager().getReducedDamageMultiplier());
+			if (event.getEntity() instanceof Player) {
+				event.setDamage(event.getDamage()*plugin.getConfigManager().getReducedDamageMultiplier());
+			}
 		}
 		// calls the patchItem() method for both hands of the player.
 		patchItem(damager, damager.getInventory().getItemInMainHand());
