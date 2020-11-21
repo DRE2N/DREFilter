@@ -30,7 +30,7 @@ public class Filter implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onInteract(PlayerInteractEntityEvent event) {
 		// cancels the interaction between Player and Villager
 		if (event.getRightClicked() instanceof Villager && DREFilter.getInstance().getConfigManager().isVillagerDisabled()) {
@@ -179,7 +179,7 @@ public class Filter implements Listener {
 	}
 
 	private void handleNoItemDamage(ItemStack item) {
-		if (item.getItemMeta().getLore() != null) {
+		if (item.getItemMeta() != null && item.getItemMeta().getLore() != null) {
 			for (String s : plugin.getConfigManager().getIgnoreDamageFilterLore()) {
 				if (item.getItemMeta().getLore().contains(ChatColor.translateAlternateColorCodes('&', s))) {
 					return;
@@ -197,7 +197,9 @@ public class Filter implements Listener {
 					if (lore == null) {
 						lore = new ArrayList<>();
 					}
-					lore.add(plugin.getConfigManager().getNoDamageItemLore());
+					if (!lore.contains(plugin.getConfigManager().getNoDamageItemLore())) {
+						lore.add(plugin.getConfigManager().getNoDamageItemLore());
+					}
 					meta.setLore(lore);
 				} catch (IllegalArgumentException i) {
 					i.printStackTrace();
