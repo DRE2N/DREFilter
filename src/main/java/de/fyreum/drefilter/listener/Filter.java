@@ -51,7 +51,9 @@ public class Filter implements Listener {
 			// sets the damager to the shooter if the event.getDamager() is an arrow.
 			damager = (HumanEntity) ((Arrow) event.getDamager()).getShooter();
 		}
-		assert damager != null;
+		if (damager == null) {
+			return;
+		}
 		// reduces the damage of certain weapons
 		if (damager.getInventory().getItemInMainHand().getItemMeta().getLore() != null &&
 				damager.getInventory().getItemInMainHand().getItemMeta().getLore().contains(plugin.getFilterItems().getReducedPlayerDamageLore())) {
