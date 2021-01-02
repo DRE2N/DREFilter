@@ -5,13 +5,19 @@ import de.fyreum.drefilter.listener.Filter;
 import de.fyreum.drefilter.commands.CommandManager;
 import de.fyreum.drefilter.config.ConfigManager;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.UUID;
 
 public final class DREFilter extends JavaPlugin {
 
     private static DREFilter plugin;
     private ConfigManager manager;
     private FilterItems filterItems;
+    private final AttributeModifier noDamageModifier = new AttributeModifier(UUID.fromString("cc7bfff8-4d39-11eb-ae93-0242ac130002"),
+            "noDamage", -1, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlot.HAND);
 
     @Override
     public void onEnable() {
@@ -50,4 +56,7 @@ public final class DREFilter extends JavaPlugin {
         return filterItems;
     }
 
+    public AttributeModifier getNoDamageModifier() {
+        return noDamageModifier;
+    }
 }
