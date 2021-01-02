@@ -17,6 +17,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -197,7 +198,7 @@ public class Filter implements Listener {
 				ItemMeta meta = item.getItemMeta();
 				try {
 					meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,
-							new AttributeModifier("noDamage", -1, AttributeModifier.Operation.MULTIPLY_SCALAR_1));
+							new AttributeModifier(UUID.randomUUID(), "noDamage", -1, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlot.HAND));
 					meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 					List<String> lore = meta.getLore();
 					if (lore == null) {
