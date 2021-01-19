@@ -59,23 +59,20 @@ public class ItemBuilder {
     }
 
     public ItemBuilder addLore(String s) {
-        if (meta == null) {
-            meta = item.getItemMeta();
-        }
         if (isPotionMeta) {
-            if (potionMeta.getLore() == null) {
-                potionMeta.setLore(new ArrayList<>());
+            if (potionMeta == null) {
+                potionMeta = (PotionMeta) item.getItemMeta();
             }
-            List<String> lore = potionMeta.getLore();
+            List<String> lore = potionMeta.getLore() == null ? new ArrayList<>() : potionMeta.getLore();
             lore.add(s);
             potionMeta.setLore(lore);
             item.setItemMeta(potionMeta);
             return this;
         }
-        if (meta.getLore() == null) {
-            meta.setLore(new ArrayList<>());
+        if (meta == null) {
+            meta = item.getItemMeta();
         }
-        List<String> lore = meta.getLore();
+        List<String> lore = meta.getLore() == null ? new ArrayList<>() : meta.getLore();
         lore.add(s);
         meta.setLore(lore);
         item.setItemMeta(meta);
@@ -83,13 +80,16 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setLore(List<String> lore) {
-        if (meta == null) {
-            meta = item.getItemMeta();
-        }
         if (isPotionMeta) {
+            if (potionMeta == null) {
+                potionMeta = (PotionMeta) item.getItemMeta();
+            }
             potionMeta.setLore(lore);
             item.setItemMeta(potionMeta);
             return this;
+        }
+        if (meta == null) {
+            meta = item.getItemMeta();
         }
         meta.setLore(lore);
         item.setItemMeta(meta);
