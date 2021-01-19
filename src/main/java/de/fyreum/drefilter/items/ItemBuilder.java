@@ -59,6 +59,9 @@ public class ItemBuilder {
     }
 
     public ItemBuilder addLore(String s) {
+        if (meta == null) {
+            meta = item.getItemMeta();
+        }
         if (isPotionMeta) {
             if (potionMeta.getLore() == null) {
                 potionMeta.setLore(new ArrayList<>());
@@ -80,6 +83,9 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setLore(List<String> lore) {
+        if (meta == null) {
+            meta = item.getItemMeta();
+        }
         if (isPotionMeta) {
             potionMeta.setLore(lore);
             item.setItemMeta(potionMeta);

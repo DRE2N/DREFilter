@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 group = 'de.fyreum'
-version = '1.0.5'
+version = '1.0.6'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -21,13 +21,13 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.3-R0.1-SNAPSHOT'
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT'
 }
 
 task deploy(type: Copy, group: "server", description: "Copies sources to the dest directory") {
     dependsOn jar
     from "build/libs"
-    into "F:/Developement/Server 1.16.3/plugins"
+    into "F:/Developement/Server 1.16.4/plugins"
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens

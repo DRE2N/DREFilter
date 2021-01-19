@@ -27,7 +27,9 @@ public final class DREFilter extends JavaPlugin {
         // calls the load() function.
         load();
         // command executor:
-        getCommand("drefilter").setExecutor(new CommandManager());
+        CommandManager commandManager = new CommandManager();
+        getCommand("drefilter").setExecutor(commandManager);
+        getCommand("drefilter").setExecutor(commandManager);
         System.out.println("[DREFilter] wurde geladen.");
     }
 
