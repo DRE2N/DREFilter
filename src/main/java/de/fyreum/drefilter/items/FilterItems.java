@@ -15,7 +15,7 @@ public class FilterItems {
     private final String reducedPlayerDamageLore = GRAY + "Geringer Spielerschaden";
     private final HashMap<Material, ItemStack> filteredMaterials = new HashMap<>();
     private final List<String> loreList = Arrays.asList(GRAY + "Schuppenr\u00fcstung", GRAY + "Plattenr\u00fcstung", GRAY + "Dolch", GRAY + "Katana", GRAY + "Langschwert",
-            GRAY + "Ritterschwert", GRAY + "Rapier", reducedPlayerDamageLore);
+            GRAY + "Ritterschwert", GRAY + "Rapier", reducedPlayerDamageLore, BLUE + "Questitem");
     private final ItemStack plateHelmet = new ItemBuilder(Material.IRON_HELMET).setDisplayName(WHITE + "Schuppenr\u00fcstung")
             .setLore(Arrays.asList(GRAY + "Schuppenr\u00fcstung",
                     GREEN + "Qualit\u00e4t: " + GOLD + "\u2605\u2605\u2605\u2605",
