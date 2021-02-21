@@ -30,7 +30,7 @@ noDamageItemLore: "&5Werkzeug"
 
 # if true: all villager interactions will get canceled.
 # if false: default interactions
-villagerDisabled: true
+villagerDisabled: false
 
 # enchantment list
 # enabled:  Write down the maximum level of the enchantment that is allowed.

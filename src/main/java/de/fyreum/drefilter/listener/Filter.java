@@ -196,7 +196,11 @@ public class Filter implements Listener {
 			if (item.getType().name().contains(noDamageItem)) {
 				ItemMeta meta = item.getItemMeta();
 				try {
-					meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, plugin.getNoDamageModifier());
+					try {
+						meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, plugin.getNoDamageModifier());
+					} catch (IllegalArgumentException e) {
+						return;
+					}
 					meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 					List<String> lore = meta.getLore();
 					if (lore == null) {
