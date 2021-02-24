@@ -129,50 +129,49 @@ public class Filter implements Listener {
 		FilterItems filterItems = plugin.getFilterItems();
 
 		ItemMeta meta = item.getItemMeta();
-		filterItems.getFilteredMaterials().forEach((filteredMaterial, itemStack) -> {
-			if (item.getType().equals(filteredMaterial)) {
-				if (itemStack == null) {
-					item.setAmount(0);
-					return;
-				}
-				// gets the enchantments to add
-				Map<Enchantment, Integer> enchantmentMap = new HashMap<>();
-				item.getEnchantments().forEach(enchantmentMap::put);
-				// merges the item meta
-				ItemMeta itemMeta = itemStack.getItemMeta();
-				if (meta != null) {
-					if (meta.getLore() == null) {
-						meta.setLore(new ArrayList<>());
-					} else {
-						if (itemMeta.getLore() == null) {
-							itemMeta.setLore(new ArrayList<>());
-						}
-						List<String> lore = itemMeta.getLore();
-						meta.getLore().forEach(s -> {
-							if (!s.equals(filterItems.getReducedPlayerDamageLore())) {
-								lore.add(s);
-							}
-						});
-						itemMeta.setLore(lore);
+		if (!(meta != null && meta.getLore() != null && meta.getLore().size() != 0 && filterItems.getLoreList().contains(meta.getLore().get(0)))) {
+			filterItems.getFilteredMaterials().forEach((filteredMaterial, itemStack) -> {
+				if (item.getType().equals(filteredMaterial)) {
+					if (itemStack == null) {
+						item.setAmount(0);
+						return;
 					}
-				}
-				item.setItemMeta(itemMeta);
-				// adds the enchantments
-				if (!enchantmentMap.isEmpty()) {
-					HashMap<NamespacedKey, Integer> enchantmentValues = plugin.getConfigManager().getEnchantmentValues();
-					enchantmentMap.forEach((enchantment, integer) -> {
-						if (integer > enchantmentValues.get(enchantment.getKey())) {
-							item.addUnsafeEnchantment(enchantment, enchantmentValues.get(enchantment.getKey()));
-							return;
+					// gets the enchantments to add
+					Map<Enchantment, Integer> enchantmentMap = new HashMap<>();
+					item.getEnchantments().forEach(enchantmentMap::put);
+					// merges the item meta
+					ItemMeta itemMeta = itemStack.getItemMeta();
+					if (meta != null) {
+						if (meta.getLore() == null) {
+							meta.setLore(new ArrayList<>());
+						} else {
+							if (itemMeta.getLore() == null) {
+								itemMeta.setLore(new ArrayList<>());
+							}
+							List<String> lore = itemMeta.getLore();
+							meta.getLore().forEach(s -> {
+								if (!s.equals(filterItems.getReducedPlayerDamageLore())) {
+									lore.add(s);
+								}
+							});
+							itemMeta.setLore(lore);
 						}
-						item.addUnsafeEnchantment(enchantment, integer);
-					});
+					}
+					item.setItemMeta(itemMeta);
+					// adds the enchantments
+					if (!enchantmentMap.isEmpty()) {
+						HashMap<NamespacedKey, Integer> enchantmentValues = plugin.getConfigManager().getEnchantmentValues();
+						enchantmentMap.forEach((enchantment, integer) -> {
+							if (integer > enchantmentValues.get(enchantment.getKey())) {
+								item.addUnsafeEnchantment(enchantment, enchantmentValues.get(enchantment.getKey()));
+								return;
+							}
+							item.addUnsafeEnchantment(enchantment, integer);
+						});
+					}
+					item.setType(itemStack.getType());
 				}
-				item.setType(itemStack.getType());
-			}
-		});
-		if (meta != null && meta.getLore() != null && meta.getLore().size() != 0 && filterItems.getLoreList().contains(meta.getLore().get(0))) {
-			return;
+			});
 		}
 		if (meta != null && meta.getAttributeModifiers() != null) {
 			for (AttributeModifier attributeModifier : meta.getAttributeModifiers().get(Attribute.GENERIC_ATTACK_DAMAGE)) {
