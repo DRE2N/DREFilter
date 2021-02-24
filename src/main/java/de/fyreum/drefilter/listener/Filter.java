@@ -128,35 +128,35 @@ public class Filter implements Listener {
 	public void runItemFilter(ItemStack item) {
 		FilterItems filterItems = plugin.getFilterItems();
 
+		ItemMeta meta = item.getItemMeta();
 		filterItems.getFilteredMaterials().forEach((filteredMaterial, itemStack) -> {
 			if (item.getType().equals(filteredMaterial)) {
 				if (itemStack == null) {
 					item.setAmount(0);
 					return;
 				}
-				if (item.getItemMeta().getLore() != null && filterItems.getLoreList().contains(item.getItemMeta().getLore().get(0))) {
-					return;
-				}
 				// gets the enchantments to add
 				Map<Enchantment, Integer> enchantmentMap = new HashMap<>();
 				item.getEnchantments().forEach(enchantmentMap::put);
 				// merges the item meta
-				ItemMeta meta = itemStack.getItemMeta();
-				if (item.getItemMeta() != null) {
-					if (item.getItemMeta().getLore() == null) {
-						item.getItemMeta().setLore(new ArrayList<>());
+				ItemMeta itemMeta = itemStack.getItemMeta();
+				if (meta != null) {
+					if (meta.getLore() == null) {
+						meta.setLore(new ArrayList<>());
 					} else {
-						item.getItemMeta().getLore().forEach(s -> {
-							if (meta.getLore() == null) {
-								meta.setLore(new ArrayList<>());
+						if (itemMeta.getLore() == null) {
+							itemMeta.setLore(new ArrayList<>());
+						}
+						List<String> lore = itemMeta.getLore();
+						meta.getLore().forEach(s -> {
+							if (!s.equals(filterItems.getReducedPlayerDamageLore())) {
+								lore.add(s);
 							}
-							List<String> lore = meta.getLore();
-							lore.add(s);
-							meta.setLore(lore);
 						});
+						itemMeta.setLore(lore);
 					}
 				}
-				item.setItemMeta(meta);
+				item.setItemMeta(itemMeta);
 				// adds the enchantments
 				if (!enchantmentMap.isEmpty()) {
 					HashMap<NamespacedKey, Integer> enchantmentValues = plugin.getConfigManager().getEnchantmentValues();
@@ -171,12 +171,15 @@ public class Filter implements Listener {
 				item.setType(itemStack.getType());
 			}
 		});
-		if (item.getItemMeta() != null && item.getItemMeta().getAttributeModifiers() != null) {
-			for (AttributeModifier attributeModifier : item.getItemMeta().getAttributeModifiers().values()) {
+		if (meta != null && meta.getLore() != null && meta.getLore().size() != 0 && filterItems.getLoreList().contains(meta.getLore().get(0))) {
+			return;
+		}
+		if (meta != null && meta.getAttributeModifiers() != null) {
+			for (AttributeModifier attributeModifier : meta.getAttributeModifiers().get(Attribute.GENERIC_ATTACK_DAMAGE)) {
 				if (attributeModifier == null) {
 					continue;
 				}
-				if (attributeModifier.getName().equalsIgnoreCase("noDamage")) {
+				if (attributeModifier.getUniqueId().equals(plugin.getNoDamageModifier().getUniqueId())) {
 					return;
 				}
 			}
@@ -196,12 +199,10 @@ public class Filter implements Listener {
 			if (item.getType().name().contains(noDamageItem)) {
 				ItemMeta meta = item.getItemMeta();
 				try {
-					try {
-						meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, plugin.getNoDamageModifier());
-					} catch (IllegalArgumentException e) {
-						return;
+					meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, plugin.getNoDamageModifier());
+					if (!meta.hasItemFlag(ItemFlag.HIDE_ATTRIBUTES)) {
+						meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 					}
-					meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 					List<String> lore = meta.getLore();
 					if (lore == null) {
 						lore = new ArrayList<>();
