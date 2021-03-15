@@ -100,6 +100,9 @@ public class Filter implements Listener {
 		if (item == null) {
 			return;
 		}
+		if (entity.hasPermission("drefilter.bypass")) {
+			return;
+		}
 		// if the players current world isn't contained by the affectedWorldList the method stops.
 		if (!plugin.getConfigManager().getAffectedWorldList().contains(entity.getWorld().getName())) {
 			return;

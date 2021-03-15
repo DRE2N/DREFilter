@@ -56,6 +56,10 @@ public class FilterItems {
         filteredMaterials.put(Material.IRON_CHESTPLATE, plateChestPlate);
         filteredMaterials.put(Material.IRON_LEGGINGS, plateLeggings);
         filteredMaterials.put(Material.IRON_BOOTS, plateBoots);
+        filteredMaterials.put(Material.CHAINMAIL_HELMET, plateHelmet);
+        filteredMaterials.put(Material.CHAINMAIL_CHESTPLATE, plateChestPlate);
+        filteredMaterials.put(Material.CHAINMAIL_LEGGINGS, plateLeggings);
+        filteredMaterials.put(Material.CHAINMAIL_BOOTS, plateBoots);
 
         // 1.16
         if (Bukkit.getVersion().contains("1.16")) {
