@@ -22,11 +22,11 @@ public final class DREFilter extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        // registers the Listener.
+        // registers the filter Listener.
         Bukkit.getPluginManager().registerEvents(new Filter(plugin), this);
-        // calls the load() function.
+        // loads the config and filter items
         load();
-        // command executor:
+        // loads and registers the plugin command
         CommandManager commandManager = new CommandManager();
         getCommand("drefilter").setExecutor(commandManager);
         getCommand("drefilter").setTabCompleter(commandManager);
@@ -42,7 +42,7 @@ public final class DREFilter extends JavaPlugin {
     }
 
     private void load() {
-        // saved the default config and calls the lod() method of the ConfigManager.
+        // saves the default config and loads the config values afterwards
         saveDefaultConfig();
         manager = new ConfigManager();
         manager.load();
