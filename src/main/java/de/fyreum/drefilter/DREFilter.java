@@ -29,7 +29,7 @@ public final class DREFilter extends JavaPlugin {
         // command executor:
         CommandManager commandManager = new CommandManager();
         getCommand("drefilter").setExecutor(commandManager);
-        getCommand("drefilter").setExecutor(commandManager);
+        getCommand("drefilter").setTabCompleter(commandManager);
         System.out.println("[DREFilter] wurde geladen.");
     }
 
