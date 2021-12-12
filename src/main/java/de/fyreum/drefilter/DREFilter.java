@@ -1,9 +1,9 @@
 package de.fyreum.drefilter;
 
-import de.fyreum.drefilter.items.FilterItems;
-import de.fyreum.drefilter.listener.Filter;
 import de.fyreum.drefilter.commands.CommandManager;
 import de.fyreum.drefilter.config.ConfigManager;
+import de.fyreum.drefilter.items.FilterItems;
+import de.fyreum.drefilter.listener.Filter;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;

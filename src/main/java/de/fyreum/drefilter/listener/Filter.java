@@ -7,7 +7,11 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -21,7 +25,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Filter implements Listener {
 
@@ -55,7 +62,7 @@ public class Filter implements Listener {
 		if (damager == null) {
 			return;
 		}
-		// reduces the damage of certain weapons
+		// reduces the damage output of certain weapons
 		if (damager.getInventory().getItemInMainHand().getItemMeta() != null && damager.getInventory().getItemInMainHand().getItemMeta().getLore() != null &&
 				damager.getInventory().getItemInMainHand().getItemMeta().getLore().contains(plugin.getFilterItems().getReducedPlayerDamageLore())) {
 			if (event.getEntity() instanceof Player) {
@@ -114,12 +121,12 @@ public class Filter implements Listener {
 			HashMap<NamespacedKey, Integer> enchantmentValues = plugin.getConfigManager().getEnchantmentValues();
 			// patches the item.
 			for(Map.Entry<Enchantment, Integer> enchant : item.getEnchantments().entrySet()) {
-				// removes the enchantment, if its on the disabled list.
+				// removes the enchantment, if it's on the disabled list.
 				if (disabledEnchants.contains(enchant.getKey().getKey())) {
 					item.removeEnchantment(enchant.getKey());
 					continue;
 				}
-				// downgrades the enchant, if the level is higher then the maximum value.
+				// downgrades the enchantment, if the level is higher than the maximum value.
 				if (enchant.getValue() > enchantmentValues.get(enchant.getKey().getKey())) {
 					item.addUnsafeEnchantment(enchant.getKey(), enchantmentValues.get(enchant.getKey().getKey()));
 				}
@@ -140,8 +147,7 @@ public class Filter implements Listener {
 						return;
 					}
 					// gets the enchantments to add
-					Map<Enchantment, Integer> enchantmentMap = new HashMap<>();
-					item.getEnchantments().forEach(enchantmentMap::put);
+					Map<Enchantment, Integer> enchantmentMap = new HashMap<>(item.getEnchantments());
 					// merges the item meta
 					ItemMeta itemMeta = itemStack.getItemMeta();
 					if (meta != null) {
