@@ -3,43 +3,43 @@
 # |               DREFilter Configuration                |
 # +------------------------------------------------------+
 
-# Note:    You can change these options while the server is running.
+# Note:    You can change any of these options while the server is running.
 #          To load your changes on the running server, use the /drefilter reload command.
 
-# the damage reduction multiplier (damage*multiplier)
+# The damage reduction multiplier (damage = damage*multiplier)
 reducedDamageMultiplier: 0.5
-# every world that is listed here will be affected by the filter.
+# Every world listed here will be affected by the filter.
 affectedWorlds:
   - "Saragandes"
 
-# every item with a material contained by this list won't deal any damage.
-# to disable a specified tool type, just write the name of the tool type. for example: 'AXT'
+# Every item with a material contained in this list won't deal any damage.
+# To disable a specific tool type, just write the name of it.
 noDamageItems:
   - "AXE"
   - "PICKAXE"
   - "SHOVEL"
   - "HOE"
 
-# if an item has one of the following lore the damage filter won't affect them.
+# If an item has one of the following lore lines, the damage filter won't affect them.
 ignoreDamageFilterLore:
   - "&7Streitaxt"
   - "&7Holzfälleraxt"
 
-# this lore will be given to every item with 0 damage.
+# This lore line will be added to every item dealing 0 damage.
 noDamageItemLore: "&5Werkzeug"
 
-# if true: all villager interactions will get canceled.
-# if false: default interactions
+# If true: all villager interactions will get canceled.
+# If false: default interactions
 villagerDisabled: false
 
-# enchantment list
+# Enchantment list
 # enabled:  Write down the maximum level of the enchantment that is allowed.
-#           Higher level will get downgraded to the maximum allowed one.
+#           Higher level than allowed will get downgraded.
 #           If the number is 0 or below: the enchantment will be removed.
 
 # disabled: Enchantments that aren't listed won't be affected by the filter.
 #           Remove the '#' in front of the enchantment to enable the filter on it.
-#           Enabled enchantments with a value of null won't be affected either.
+#           Enabled enchantments with a null value won't be affected either.
 enchantments:
   DAMAGE_ALL: 2
 #  DAMAGE_ARTHROPODS:
